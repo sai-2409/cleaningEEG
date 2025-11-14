@@ -1,4 +1,4 @@
-# We are preprocessing EEG DataSet Using Python (MNE)
+# We are preprocessing EEG DataSet Using Python (MNE) 🐍
 
 ### Team 🧑🏽‍💻
   - Baila 
@@ -13,7 +13,7 @@ The goal is to take raw (in this case `.edf` format) recordings and turn them in
 ### What this project does
 
 - Load EEG recordings from `.edf` files  
-- Let the user choose which recording to work with  
+- Displays the data of certain participants in a graph 📈
 - Apply basic preprocessing steps:
   - set channel montage and rename channels
   - mark and remove bad channels
@@ -31,7 +31,20 @@ This project is mainly for **learning and experimentation**:
 > ⚠️ Disclaimer:  
 > This code is **not** intended for clinical or medical use(yet). It’s a student project for research and education only.
 
-## Future Goal for this Project
+## Future Goal for this Project 💯
 Get the most accurate cleaned data possible so we can reuse this project for further studies!
 
-## Instructions
+# Instructions 📝
+
+### Downloading the code into your local device using Git (MacBook in this case)
+mkdir -p ~/Projects
+cd ~/Projects
+git clone https://github.com/sai-2409/cleaningEEG.git
+
+### (Optional but recommended) Create a virtual environment
+python -m venv .venv
+source .venv/bin/activate   # activate venv
+pip install -r requirements.txt
+
+Finally!!!
+python app.py
