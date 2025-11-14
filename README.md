@@ -47,4 +47,5 @@ git clone https://github.com/sai-2409/cleaningEEG.git
 3. pip install -r requirements.txt
 
 Finally!!!
+
 4. python app.py
