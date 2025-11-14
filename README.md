@@ -42,9 +42,9 @@ cd ~/Projects
 git clone https://github.com/sai-2409/cleaningEEG.git
 
 ### (Optional but recommended) Create a virtual environment
-python -m venv .venv
-source .venv/bin/activate   # activate venv
-pip install -r requirements.txt
+1. python -m venv .venv
+2. source .venv/bin/activate   # activate venv
+3. pip install -r requirements.txt
 
 Finally!!!
-python app.py
+4. python app.py
