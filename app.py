@@ -6,9 +6,13 @@ import mne, matplotlib.pyplot as plt
 import os
 
 # storing data's path into eeg_file variable
-eeg_file = Path("/Users/sai.laca/Desktop/cleaningEEG/data/1.edf")
+eeg_file_path = Path("/Users/sai.laca/Desktop/cleaningEEG/data/")
 
-# participant = int(input("Choose Participant by entering number between 1 to 34: "))
+participant = int(input("Choose Participant by entering number between 1 to 34: "))
+eeg_file = eeg_file_path / f"{participant}.edf"
+
+# Print selected file
+print("You selected:", eeg_file)
 
 # reading raw dataset
 raw = mne.io.read_raw_edf(str(eeg_file), preload=True)
