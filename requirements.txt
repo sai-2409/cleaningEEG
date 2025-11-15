@@ -2,8 +2,8 @@
 # Here is the libraries you should add
 
 mne==1.8.0
-numpy==2.1.0
-scipy==1.14.0
-matplotlib==3.9.0
+numpy>1.9.0
+scipy>1.10.0
+matplotlib>3.8.0
 
 # The versions of libraries is not required
