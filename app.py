@@ -1,37 +1,43 @@
-### Importing path for the showing file's path easier
-from pathlib import Path
+import sys
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import (
+    QApplication, 
+    QMainWindow, 
+    QLabel,
+    QVBoxLayout, 
+    QWidget
+)
 
-## importing mne library for displaying data using python
-import mne, matplotlib.pyplot as plt
-import os
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
 
-# storing data's path into eeg_file variable
-eeg_file_path = Path("/Users/sai.laca/Desktop/cleaningEEG/data/")
+        self.setWindowTitle("Cleaning EEG App")
+        self.setGeometry(100, 100, 400, 200)
 
-participant = int(input("Choose Participant by entering number between 1 to 34: "))
-eeg_file = eeg_file_path / f"{participant}.edf"
+        # Creating Qlabel for the title
+        self.title_label = QLabel("Choose the Participant")
+        # centering the text inside the QLabel itself
+        self.title_label.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
-# Print selected file
-print("You selected:", eeg_file)
+        # just styles for the label
+        self.title_label.setStyleSheet("font-size: 24px; font-weight: bold;")
 
-# reading raw dataset
-raw = mne.io.read_raw_edf(str(eeg_file), preload=True)
+        central_widget = QWidget()
+        main_layout = QVBoxLayout()
 
-raw_cleaned = raw.copy()
+        main_layout.addWidget(self.title_label, alignment = Qt.AlignTop | Qt.AlignHCenter)
 
-raw_cleaned.notch_filter(freqs=[50])
-raw_cleaned.filter(l_freq = 0.5, h_freq = 80.0, picks = "eeg", method = "fir", phase = "zero", fir_window = "hamming")
+        central_widget.setLayout(main_layout)
+        self.setCentralWidget(central_widget)
 
-# Printing raw data to the termnilal
-print(raw.info)
-print(raw_cleaned.info)
 
-# Displaying the dataset
-raw.plot(duration = 10,
-        scalings = "auto",
-        block = False)
-raw_cleaned.plot(duration = 10,
-        scalings = "auto",
-        event_color="green",
-        block = False)
-plt.show()
+    
+def main():
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec())
+
+if __name__ == "__main__":
+    main()
