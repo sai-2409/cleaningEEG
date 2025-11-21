@@ -5,18 +5,21 @@ from PySide6.QtWidgets import (
     QMainWindow, 
     QLabel,
     QVBoxLayout, 
-    QWidget
+    QWidget,
+    QPushButton,
+    QFileDialog,
 )
+from cleaning import cleaning
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle("Cleaning EEG App")
-        self.setGeometry(100, 100, 400, 200)
+        self.setGeometry(500, 200, 400, 400) ### x, y, width and height, settings for the window's initial size and position
 
         # Creating Qlabel for the title
-        self.title_label = QLabel("Choose the Participant")
+        self.title_label = QLabel("Choose a Participant")
         # centering the text inside the QLabel itself
         self.title_label.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
@@ -25,14 +28,46 @@ class MainWindow(QMainWindow):
 
         central_widget = QWidget()
         main_layout = QVBoxLayout()
-
-        main_layout.addWidget(self.title_label, alignment = Qt.AlignTop | Qt.AlignHCenter)
-
         central_widget.setLayout(main_layout)
         self.setCentralWidget(central_widget)
 
+        main_layout.addWidget(self.title_label, alignment = Qt.AlignTop | Qt.AlignHCenter)
 
-    
+        # creating button
+        self.chooseBtn = QPushButton("Choose File")
+        self.chooseBtn.setCursor(Qt.PointingHandCursor)
+        self.chooseBtn.setMinimumSize(180, 50)
+        self.chooseBtn.setMaximumWidth(260)
+
+        self.pathLabel = QLabel("No file selected yet")
+        self.pathLabel.setAlignment(Qt.AlignCenter)
+        self.pathLabel.setWordWrap(True)
+
+        # add button and label to layout
+        main_layout.addWidget(self.chooseBtn, alignment=Qt.AlignHCenter)
+        main_layout.addWidget(self.pathLabel, alignment=Qt.AlignHCenter)
+
+        # connecting our button to the function
+        self.chooseBtn.clicked.connect(self.openFileDialog)
+
+    def openFileDialog(self):
+        filePath, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select a file",
+            "", # to start in the default folder
+            "All files (*);;EEG Files (*.edf)"
+        )
+        if filePath: 
+            self.pathLabel.setText(f"Selected: \n{filePath}")
+            print("User selected:", filePath)
+
+            # running the cleaning function here
+            cleaning(filePath)
+
+        else:
+            self.pathLabel.setText("No file selected")
+
+
 def main():
     app = QApplication(sys.argv)
     window = MainWindow()
