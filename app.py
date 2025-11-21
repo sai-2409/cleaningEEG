@@ -33,7 +33,7 @@ class MainWindow(QMainWindow):
 
         main_layout.addWidget(self.title_label, alignment = Qt.AlignTop | Qt.AlignHCenter)
 
-        # creating button
+        # creating "choose a file" button
         self.chooseBtn = QPushButton("Choose File")
         self.chooseBtn.setCursor(Qt.PointingHandCursor)
         self.chooseBtn.setMinimumSize(180, 50)
@@ -45,7 +45,19 @@ class MainWindow(QMainWindow):
 
         # add button and label to layout
         main_layout.addWidget(self.chooseBtn, alignment=Qt.AlignHCenter)
-        main_layout.addWidget(self.pathLabel, alignment=Qt.AlignHCenter)
+        main_layout.addWidget(self.pathLabel)
+        self.pathLabel.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
+
+        # creating button for exitting
+        self.exitButton = QPushButton("Exit")
+        self.exitButton.setCursor(Qt.PointingHandCursor)
+        self.exitButton.setMinimumSize(180, 50)
+        self.chooseBtn.setMaximumWidth(260)
+
+        main_layout.addWidget(self.exitButton, alignment=Qt.AlignHCenter)
+
+        # closing the window when button clicked
+        self.exitButton.clicked.connect(QApplication.instance().quit)
 
         # connecting our button to the function
         self.chooseBtn.clicked.connect(self.openFileDialog)
@@ -60,6 +72,10 @@ class MainWindow(QMainWindow):
         if filePath: 
             self.pathLabel.setText(f"Selected: \n{filePath}")
             print("User selected:", filePath)
+            self.setGeometry(100, 200, 1000, 800)
+
+            # self.chooseBtn.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
+            # self.pathLabel.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
             # running the cleaning function here
             cleaning(filePath)

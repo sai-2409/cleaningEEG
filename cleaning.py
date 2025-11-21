@@ -17,7 +17,7 @@ import os
 # print("You selected:", eeg_file)
 
 def cleaning(eegFile):
-    
+
     # reading raw dataset
     raw = mne.io.read_raw_edf(str(eegFile), preload=True)
 
@@ -35,13 +35,20 @@ def cleaning(eegFile):
     # Printing raw data to the termnilal
     print(raw.info)
     print(raw_cleaned.info)
+    # print(raw.info["bads"])
 
     # Displaying the dataset
     raw.plot(duration = 10,
             scalings = "auto",
-            block = False)
+            block = False,
+
+            title = "Raw Data",
+            )
     raw_cleaned.plot(duration = 10,
             scalings = "auto",
             event_color="green",
-            block = False)
-    plt.show()
+            block = False,
+            
+            title = "Cleaned Data",
+            )
+    # plt.show()
